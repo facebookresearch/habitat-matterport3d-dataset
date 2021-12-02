@@ -3,15 +3,6 @@
 # Turn off non-critical habitat-sim logging
 export GLOG_minloglevel=2 HABITAT_SIM_LOG=quiet MAGNUM_LOG=quiet
 
-
-GIBSON_ROOT=<PATH TO GIBSON glbs>
-MP3D_ROOT=<PATH TO MP3D glbs>
-ROBOTHOR_ROOT=<PATH TO ROBOTHOR glbs>
-HABITAT_MATTERPORT_ROOT=<PATH TO HM3D glbs>
-REPLICA_ROOT=<PATH TO REPLICA plys>
-SCANNET_ROOT=<PATH TO SCANNET glbs>
-
-
 # Gibson 4+
 python compute_scene_metrics.py --dataset-root $GIBSON_ROOT --filter-scenes data/gibson_4_plus.txt
 

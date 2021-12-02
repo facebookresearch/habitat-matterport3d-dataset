@@ -1,6 +1,6 @@
-# PointNav comparison for HM3D
-
-We provide instructions for running the PointNav experiments reported in Tab. 2 from the HM3D paper.
+# Utility of HM3D for Embodied AI
+A popular downstream application for large-scale 3D reconstruction datasets has been to use them
+with 3D simulation platforms to study embodied AI tasks such as visual navigation. Since HM3D improves over existing datasets both in terms of size and quality, we evaluate its utility for Embodied AI by training PointNav agents. We provide instructions for running the PointNav experiments reported in Tab. 2 from the HM3D paper.
 We use existing code from [Habitat baselines](https://github.com/facebookresearch/habitat-lab/tree/master/habitat_baselines) to perform our experiments.
 
 ## Setup instructions

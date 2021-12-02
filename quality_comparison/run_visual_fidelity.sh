@@ -1,7 +1,4 @@
 #!/bin/bash
-
-SAVE_DIR_PATH="<DIRECTORY TO SAVE extracted images>"
-
 REAL_ROOT="$SAVE_DIR_PATH/real_images"
 SIM_ROOT="$SAVE_DIR_PATH/simulated_images"
 

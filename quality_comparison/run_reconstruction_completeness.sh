@@ -1,7 +1,5 @@
 #!/bin/bash
 
-SAVE_DIR_PATH="<DIRECTORY TO SAVE extracted images>"
-
 MD_SAVE_ROOT="$SAVE_DIR_PATH/simulated_images/rgb2depth_metadata"
 
 python measure_reconstruction_completeness.py \
