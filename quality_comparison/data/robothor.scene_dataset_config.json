@@ -1,0 +1,1 @@
+{"stages": {"paths": {".glb": ["habitat/*"]}}, "default_attributes": {"up": [0, 1, 0], "front": [0, 0, -1]}}
