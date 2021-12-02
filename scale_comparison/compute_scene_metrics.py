@@ -11,7 +11,7 @@ from PIL import Image
 Image.MAX_IMAGE_PIXELS = 1000000000
 
 from typing import Any, Dict, List, Callable
-from utils import robust_load_sim, get_filtered_scenes
+from common.utils import robust_load_sim, get_filtered_scenes
 from metrics import (
     compute_navigable_area,
     compute_navigation_complexity,
