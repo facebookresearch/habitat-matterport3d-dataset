@@ -4,16 +4,15 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-import os
-import glob
-import tqdm
-import imageio
 import argparse
-import numpy as np
+import glob
 import multiprocessing as mp
+import os
 
+import imageio
+import numpy as np
+import tqdm
 from py360convert import e2p
-
 
 FOV = 90.0
 HEIGHT = 300
@@ -32,7 +31,7 @@ def extract_rgb_images(pano_path: str, save_prefix: str) -> None:
         list_of_images.append(pimg)
     # Save images
     for idx, image in enumerate(list_of_images):
-        path = save_prefix + f'_img_{idx:03d}.jpg'
+        path = save_prefix + f"_img_{idx:03d}.jpg"
         imageio.imwrite(path, image)
 
 
@@ -40,19 +39,21 @@ def _aux_fn(args):
     extract_rgb_images(*args)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset-dir', type=str, required=True)
-    parser.add_argument('--save-dir', type=str, required=True)
-    parser.add_argument('--num-workers', type=int, default=8)
+    parser.add_argument("--dataset-dir", type=str, required=True)
+    parser.add_argument("--save-dir", type=str, required=True)
+    parser.add_argument("--num-workers", type=int, default=8)
 
     args = parser.parse_args()
 
-    pano_paths = sorted(glob.glob(os.path.join(args.dataset_dir, '*/pano/rgb/*_rgb.png')))
-    print(f'Number of panoramic images: {len(pano_paths)}')
+    pano_paths = sorted(
+        glob.glob(os.path.join(args.dataset_dir, "*/pano/rgb/*_rgb.png"))
+    )
+    print(f"Number of panoramic images: {len(pano_paths)}")
 
     inputs = [
-        (pano_path, os.path.join(args.save_dir, f'pano_{i:06d}'))
+        (pano_path, os.path.join(args.save_dir, f"pano_{i:06d}"))
         for i, pano_path in enumerate(pano_paths)
     ]
 

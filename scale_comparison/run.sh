@@ -8,25 +8,25 @@
 export GLOG_minloglevel=2 HABITAT_SIM_LOG=quiet MAGNUM_LOG=quiet
 
 # Gibson 4+
-python compute_scene_metrics.py --dataset-root $GIBSON_ROOT --filter-scenes data/gibson_4_plus.txt
+python compute_scene_metrics.py --dataset-root "$GIBSON_ROOT" --filter-scenes data/gibson_4_plus.txt
 
 # Gibson 2+
-python compute_scene_metrics.py --dataset-root $GIBSON_ROOT --filter-scenes data/gibson_2_plus.txt
+python compute_scene_metrics.py --dataset-root "$GIBSON_ROOT" --filter-scenes data/gibson_2_plus.txt
 
 # Gibson Full
-python compute_scene_metrics.py --dataset-root $GIBSON_ROOT
+python compute_scene_metrics.py --dataset-root "$GIBSON_ROOT"
 
 # ROBOTHOR
-python compute_scene_metrics.py --dataset-root $ROBOTHOR_ROOT
+python compute_scene_metrics.py --dataset-root "$ROBOTHOR_ROOT"
 
 # Replica
-python compute_scene_metrics.py --dataset-root $REPLICA_ROOT --scan-pattern "mesh_semantic.ply"
+python compute_scene_metrics.py --dataset-root "$REPLICA_ROOT" --scan-pattern "mesh_semantic.ply"
 
 # ScanNet
-python compute_scene_metrics.py --dataset-root $SCANNET_ROOT
+python compute_scene_metrics.py --dataset-root "$SCANNET_ROOT"
 
 # MP3D
-python compute_scene_metrics.py --dataset-root $MP3D_ROOT
+python compute_scene_metrics.py --dataset-root "$MP3D_ROOT"
 
 # HM3D
-python compute_scene_metrics.py --dataset-root $HABITAT_MATTERPORT_ROOT
+python compute_scene_metrics.py --dataset-root "$HABITAT_MATTERPORT_ROOT"

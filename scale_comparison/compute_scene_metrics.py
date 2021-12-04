@@ -4,27 +4,29 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
+import argparse
 import glob
+import multiprocessing as mp
+
+import numpy as np
+import open3d as o3d
+import pandas as pd
 import tqdm
 import trimesh
-import argparse
-import numpy as np
-import pandas as pd
-import open3d as o3d
-import multiprocessing as mp
 from PIL import Image
 
 Image.MAX_IMAGE_PIXELS = 1000000000
 
-from typing import Any, Dict, List, Callable
-from common.utils import robust_load_sim, get_filtered_scenes
+from typing import Any, Callable, Dict, List
+
 from metrics import (
+    compute_floor_area,
     compute_navigable_area,
     compute_navigation_complexity,
     compute_scene_clutter,
-    compute_floor_area,
 )
 
+from common.utils import get_filtered_scenes, robust_load_sim
 
 VALID_METRICS: List[str] = [
     "navigable_area",

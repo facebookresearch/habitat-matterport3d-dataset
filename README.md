@@ -56,7 +56,7 @@ We provide a common set of instructions to setup the environment to run all our 
     ```
 
 ## Downloading datasets
-In our paper, we compared HM3D to Gibson, MP3D, RoboThor, Replica, and ScanNet. 
+In our paper, we compared HM3D to Gibson, MP3D, RoboThor, Replica, and ScanNet.
 
 * Download each dataset based on these [instructions](https://github.com/facebookresearch/habitat-sim/blob/master/DATASETS.md) from habitat-sim. In the case of RoboThor, convert the raw scan assets to GLB using [assimp](https://github.com/assimp/assimp).
 
@@ -78,8 +78,8 @@ In our paper, we compared HM3D to Gibson, MP3D, RoboThor, Replica, and ScanNet.
 
 ## Running experiments
 We provide the code for reproducing the results from [our paper](https://openreview.net/pdf?id=-v4OuqNs5P) in different directories.
-* `scale_comparison` contains the code for comparing the scale of HM3D with other datasets (Tab. 1 in the paper). 
-* `quality_comparison` contains the code for comparing the reconstruction completeness and visual fidelity of HM3D with other datasets (Fig. 4 and Tab. 5 in the paper). 
+* `scale_comparison` contains the code for comparing the scale of HM3D with other datasets (Tab. 1 in the paper).
+* `quality_comparison` contains the code for comparing the reconstruction completeness and visual fidelity of HM3D with other datasets (Fig. 4 and Tab. 5 in the paper).
 * `pointnav_comparison` contains the configs and instructions to train and evaluate PointNav agents on HM3D and other datasets (Tab. 2 and Fig. 7 in the paper).
 
 We further provide README files within each directory with instructions for running the corresponding experiments.

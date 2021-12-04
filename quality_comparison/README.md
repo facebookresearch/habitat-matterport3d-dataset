@@ -1,13 +1,13 @@
 # Scene quality comparison for HM3D
-We measure the reconstruction quality of a 3D scene by measuring its reconstruction completeness and visual fidelity. 
+We measure the reconstruction quality of a 3D scene by measuring its reconstruction completeness and visual fidelity.
 
 We first render RGB-D images from the scene using Habitat. To measure reconstruction completeness, we define a view-based metric that measures the degree to which reconstruction artifacts (or defects) occur in an image. Reconstruction artifacts include missing surfaces, holes, and untextured surface regions. We then quantify the fraction of viewpoints in the scene that have a significant number of defects (i.e., the %defects metric).
-To measure visual fidelity, we compare the rendered RGB images with real-world captured images generated from high-resolution panoramas in Gibson and MP3D using divergence metrics such as KID and FID. 
+To measure visual fidelity, we compare the rendered RGB images with real-world captured images generated from high-resolution panoramas in Gibson and MP3D using divergence metrics such as KID and FID.
 
 We now provide instructions to compute the reconstruction completeness and visual fidelity metrics in the [HM3D paper](https://openreview.net/pdf?id=-v4OuqNs5P) (Fig. 4 and Table 5, respectively).
 
 
-1. **Simulated image extraction:** Ensure that the environment variables corresponding to the different datasets are set as instructed in the main README. We render simulated images for each dataset by sampling locations in a uniform grid of navigable locations. Set the environment variable `SAVE_DIR_PATH` to save the extracted images and run the extraction script. 
+1. **Simulated image extraction:** Ensure that the environment variables corresponding to the different datasets are set as instructed in the main README. We render simulated images for each dataset by sampling locations in a uniform grid of navigable locations. Set the environment variable `SAVE_DIR_PATH` to save the extracted images and run the extraction script.
 
     ```
     export SAVE_DIR_PATH="< directory to save extracted images >"

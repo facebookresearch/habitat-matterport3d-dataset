@@ -6,15 +6,12 @@
 
 import math
 import random
-import numpy as np
-import quaternion as qt
+from typing import List, Optional
 
 import habitat_sim
+import numpy as np
+import quaternion as qt
 from habitat_sim.utils.common import quat_from_angle_axis
-
-
-from typing import Dict, List, Optional
-from sklearn.cluster import DBSCAN
 
 
 def get_random_quaternion() -> qt.quaternion:
@@ -75,12 +72,10 @@ def quaternion_to_list(q: qt.quaternion):
     return q.imag.tolist() + [q.real]
 
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Functionality from habitat-lab
-#-------------------------------------------------------------------------------
-def calculate_meters_per_pixel(
-    map_resolution: int, pathfinder=None
-):
+# -------------------------------------------------------------------------------
+def calculate_meters_per_pixel(map_resolution: int, pathfinder=None):
     r"""Calculate the meters_per_pixel for a given map resolution"""
     lower_bound, upper_bound = pathfinder.get_bounds()
     return min(
