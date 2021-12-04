@@ -13,7 +13,7 @@ ignore =
     SIM105,SIM113
     R504,
     W503,
-        # Ones I haven't bothered to fix
-        E402,
+    # Ones I haven't bothered to fix
+    E402,
 per-file-ignores =
     */__init__.py:F401
