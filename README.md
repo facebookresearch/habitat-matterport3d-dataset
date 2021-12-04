@@ -92,4 +92,4 @@ The code in this repository is MIT licensed. See the LICENSE file for details. T
 
 - Matterport3D based trained models are distributed with [Matterport3D Terms of Use](http://kaldir.vc.in.tum.de/matterport/MP_TOS.pdf) and under [CC BY-NC-SA 3.0 US license](https://creativecommons.org/licenses/by-nc-sa/3.0/us/).
 - Gibson based trained models are distributed with [Gibson Terms of Use](https://storage.googleapis.com/gibson_material/Agreement%20GDS%2006-04-18.pdf) and under [CC BY-NC-SA 3.0 US license](https://creativecommons.org/licenses/by-nc-sa/3.0/us/).
-- Habitat-Matterport 3D based trained models are distributed with [Matterport Terms of Use](https://matterport.com/matterport-end-user-license-agreement-academic-use-model-data) and under [CC BY-NC-SA 3.0 US license](https://creativecommons.org/licenses/by-nc-sa/3.0/us/).
+- Habitat-Matterport 3D based trained models are distributed with [Matterport Terms of Use](https://matterport.com/matterport-end-user-license-agreement-academic-use-model-data).
