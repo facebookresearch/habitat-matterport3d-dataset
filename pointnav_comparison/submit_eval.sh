@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Copyright (c) Facebook, Inc. and its affiliates.
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
 #SBATCH --job-name=e_hm3d_depth_seed_100
 #SBATCH --array=0-2
 #SBATCH --output=eval_logs.ddppo_%A_%a.out
