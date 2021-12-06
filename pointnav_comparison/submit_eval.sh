@@ -23,7 +23,7 @@ export GLOG_minloglevel=2 HABITAT_SIM_LOG=quiet MAGNUM_LOG=quiet
 
 ROOT_DIR=$PWD
 
-# Load necessary software using "module". Alternatively, the paths to each 
+# Load necessary software using "module". Alternatively, the paths to each
 # of the dependencies can be added manually.
 module purge
 module load anaconda3/2020.11

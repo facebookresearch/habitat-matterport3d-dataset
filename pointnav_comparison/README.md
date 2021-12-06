@@ -11,7 +11,7 @@ We use existing code from [Habitat baselines](https://github.com/facebookresearc
 
 
 ## Running experiments
-We use [DD-PPO](https://arxiv.org/abs/1911.00357) implementation in [habitat_baselines](https://github.com/facebookresearch/habitat-lab/tree/master/habitat_baselines) for our experiments.  In this directory, we provide the train and evaluation configs and scripts used for our experiments. This specific example corresponds to training on HM3D (train), and evaluating on Gibson (val), HM3D (val) and MP3D (val). 
+We use [DD-PPO](https://arxiv.org/abs/1911.00357) implementation in [habitat_baselines](https://github.com/facebookresearch/habitat-lab/tree/master/habitat_baselines) for our experiments.  In this directory, we provide the train and evaluation configs and scripts used for our experiments. This specific example corresponds to training on HM3D (train), and evaluating on Gibson (val), HM3D (val) and MP3D (val).
 
 ### Config files
 These are the config files for training on HM3D and evaluating on other datasets.
@@ -24,10 +24,10 @@ These are the config files for training on HM3D and evaluating on other datasets
 A slurm submission script for distributed training is provided in `multi_node_slurm.sh`. Each experiment is run in an internal cluster with 8 nodes, and 4 Volta 16/32GB GPUs per node. The experiment is scheduled as follows.
 
 ```
-sbatch multi_node_slurm.sh 
+sbatch multi_node_slurm.sh
 ```
 To train on any other dataset `<dataset>`, change `ddppo_train.yaml` as follows:
-* Set `BASE_TASK_CONFIG_PATH` to `configs/tasks/pointnav_<dataset>.yaml` 
+* Set `BASE_TASK_CONFIG_PATH` to `configs/tasks/pointnav_<dataset>.yaml`
 * Replace directory paths with `hm3d-depth`  to `<dataset>-depth`
 
 To train with the RGB sensor, change `ddppo_train.yaml` as follows:

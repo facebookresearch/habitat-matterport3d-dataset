@@ -4,59 +4,57 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
+import argparse
+import glob
+import itertools
+import json
+import multiprocessing as mp
 import os
 import os.path as osp
-import glob
-import tqdm
-import json
 import random
-import imageio
-import argparse
-import itertools
-import numpy as np
-import habitat_sim
-import multiprocessing as mp
-from common.utils import (
-    get_topdown_map,
-    convert_heading_to_quaternion,
-    get_filtered_scenes,
-)
+from typing import Any, Dict, List, Optional, Tuple
 
+import habitat_sim
+import imageio
+import numpy as np
+import tqdm
 from sklearn.cluster import DBSCAN
 
-from typing import Any, Dict, List, Tuple, Optional
+from common.utils import (
+    convert_heading_to_quaternion,
+    get_filtered_scenes,
+    get_topdown_map,
+)
 
 
 def make_habitat_configuration(
     scene_path: str,
     hfov: int = 90,
     resolution: Tuple[int] = (300, 300),
-    stage_json_path: Optional[str] = None
+    stage_json_path: Optional[str] = None,
 ):
     # simulator configuration
     backend_cfg = habitat_sim.SimulatorConfiguration()
     if stage_json_path is not None:
         backend_cfg.scene_dataset_config_file = stage_json_path
-        backend_cfg.scene_id = "habitat/" + scene_path.split('/')[-1]
+        backend_cfg.scene_id = "habitat/" + scene_path.split("/")[-1]
     else:
         backend_cfg.scene_id = scene_path
 
     # agent configuration
     rgb_sensor_cfg = habitat_sim.CameraSensorSpec()
-    rgb_sensor_cfg.uuid = 'rgba'
+    rgb_sensor_cfg.uuid = "rgba"
     rgb_sensor_cfg.sensor_type = habitat_sim.SensorType.COLOR
     rgb_sensor_cfg.resolution = resolution
     rgb_sensor_cfg.hfov = hfov
     depth_sensor_cfg = habitat_sim.CameraSensorSpec()
-    depth_sensor_cfg.uuid = 'depth'
+    depth_sensor_cfg.uuid = "depth"
     depth_sensor_cfg.sensor_type = habitat_sim.SensorType.DEPTH
     depth_sensor_cfg.resolution = resolution
     depth_sensor_cfg.hfov = hfov
 
     agent_cfg = habitat_sim.agent.AgentConfiguration()
-    agent_cfg.sensor_specifications = [
-        rgb_sensor_cfg, depth_sensor_cfg
-    ]
+    agent_cfg.sensor_specifications = [rgb_sensor_cfg, depth_sensor_cfg]
 
     return habitat_sim.Configuration(backend_cfg, [agent_cfg])
 
@@ -129,8 +127,8 @@ def get_navmesh_extents_at_y(
         assert y_bounds[0] < y_bounds[1]
         navmesh_vertices = np.array(sim.pathfinder.build_navmesh_vertices())
         navmesh_vertices = navmesh_vertices[
-            (y_bounds[0] <= navmesh_vertices[:, 1]) & \
-            (navmesh_vertices[:, 1] <= y_bounds[1])
+            (y_bounds[0] <= navmesh_vertices[:, 1])
+            & (navmesh_vertices[:, 1] <= y_bounds[1])
         ]
         lower_bound = navmesh_vertices.min(axis=0)
         upper_bound = navmesh_vertices.max(axis=0)
@@ -143,12 +141,12 @@ def get_dense_navmesh_vertices(
 
     navmesh_vertices = []
     floor_extents = get_floor_heights(sim)
-    for fidx, fext in enumerate(floor_extents):
+    for fext in floor_extents:
         l_bound, u_bound = get_navmesh_extents_at_y(
-            sim, y_bounds=(fext['min'] - 0.5, fext['max'] + 0.5)
+            sim, y_bounds=(fext["min"] - 0.5, fext["max"] + 0.5)
         )
         x_range = np.arange(l_bound[0].item(), u_bound[0].item(), sampling_resolution)
-        y = fext['mean']
+        y = fext["mean"]
         z_range = np.arange(l_bound[2].item(), u_bound[2].item(), sampling_resolution)
         for x, z in itertools.product(x_range, z_range):
             if sim.pathfinder.is_navigable(np.array([x, y, z])):
@@ -159,10 +157,10 @@ def get_dense_navmesh_vertices(
 
 
 def get_scene_name(scene_path, dataset):
-    if dataset == 'replica':
-        scene_name = scene_path.split('/')[-2].split('.')[0]
+    if dataset == "replica":
+        scene_name = scene_path.split("/")[-2].split(".")[0]
     else:
-        scene_name = scene_path.split('/')[-1].split('.')[0]
+        scene_name = scene_path.split("/")[-1].split(".")[0]
     return scene_name
 
 
@@ -174,8 +172,10 @@ def extract_images_in_uniform_grid(
     resolution: List[int],
     sampling_resolution: float = 0.5,
     num_rotations: int = 4,
-    sim_kwargs: Dict[Any, Any] = {}
+    sim_kwargs: Dict[Any, Any] = None,
 ) -> Tuple[List[str]]:
+    if sim_kwargs is None:
+        sim_kwargs = {}
     sim = robust_load_sim(scene_path, hfov=hfov, resolution=resolution, **sim_kwargs)
     agent = sim.get_agent(0)
     rgb_paths = []
@@ -199,10 +199,10 @@ def extract_images_in_uniform_grid(
             agent_state.rotation = rot
             agent.set_state(agent_state, reset_sensors=True)
             obs = sim.get_sensor_observations()
-            rgb = obs['rgba'][..., :3]
-            depth = obs['depth']
-            rgb_path = rgb_save_prefix + f'_img_{count:05d}.jpg'
-            depth_path = depth_save_prefix + f'_img_{count:05d}.npy'
+            rgb = obs["rgba"][..., :3]
+            depth = obs["depth"]
+            rgb_path = rgb_save_prefix + f"_img_{count:05d}.jpg"
+            depth_path = depth_save_prefix + f"_img_{count:05d}.npy"
             imageio.imwrite(rgb_path, rgb)
             np.savez_compressed(depth_path, depth=depth)
             rgb_paths.append(rgb_path)
@@ -228,8 +228,12 @@ if __name__ == "__main__":
     parser.add_argument("--rgb-save-dir", type=str, default="")
     parser.add_argument("--depth-save-dir", type=str, default="")
     parser.add_argument("--json-save-path", type=str, default="data.json")
-    parser.add_argument("--dataset-name", type=str, required=True,
-        choices=["gibson", "hm3d", "mp3d", "replica", "scannet", "robothor"])
+    parser.add_argument(
+        "--dataset-name",
+        type=str,
+        required=True,
+        choices=["gibson", "hm3d", "mp3d", "replica", "scannet", "robothor"],
+    )
     parser.add_argument("--stage-json-path", type=str, default=None)
     parser.add_argument("--num-processes", type=int, default=8)
     parser.add_argument("--sampling-resolution", type=float, default=1.0)
@@ -239,9 +243,9 @@ if __name__ == "__main__":
     random.seed(123)
     np.random.seed(123)
 
-    if args.dataset_name in ['gibson', 'hm3d', 'mp3d', 'scannet', 'robothor']:
+    if args.dataset_name in ["gibson", "hm3d", "mp3d", "scannet", "robothor"]:
         scenes = glob.glob(f"{args.dataset_dir}/**/*.glb", recursive=True)
-    elif args.dataset_name in ['replica']:
+    elif args.dataset_name in ["replica"]:
         scenes = glob.glob(f"{args.dataset_dir}/*/mesh.ply", recursive=True)
 
     if args.filter_scenes != "":
@@ -252,20 +256,22 @@ if __name__ == "__main__":
 
     print(f"Number of scenes in {args.dataset_dir}: {len(scenes)}")
 
-    sim_kwargs={'stage_json_path': args.stage_json_path}
+    sim_kwargs = {"stage_json_path": args.stage_json_path}
     inputs = []
     for scene_path in scenes:
         suffix = get_scene_name(scene_path, args.dataset_name)
-        inputs.append((
-            scene_path,
-            osp.join(args.rgb_save_dir, suffix),
-            osp.join(args.depth_save_dir, suffix),
-            HFOV,
-            RESOLUTION,
-            args.sampling_resolution,
-            NUM_ROTATIONS,
-            sim_kwargs,
-        ))
+        inputs.append(
+            (
+                scene_path,
+                osp.join(args.rgb_save_dir, suffix),
+                osp.join(args.depth_save_dir, suffix),
+                HFOV,
+                RESOLUTION,
+                args.sampling_resolution,
+                NUM_ROTATIONS,
+                sim_kwargs,
+            )
+        )
 
     os.makedirs(args.rgb_save_dir, exist_ok=True)
     os.makedirs(args.depth_save_dir, exist_ok=True)
@@ -281,7 +287,7 @@ if __name__ == "__main__":
         scene_name = get_scene_name(scenes[scene_idx], args.dataset_name)
         rgb_paths, depth_paths = scene_paths
         for rgb_path, depth_path in zip(rgb_paths, depth_paths):
-            md = {'rgb_path': rgb_path, 'depth_path': depth_path}
+            md = {"rgb_path": rgb_path, "depth_path": depth_path}
             metadata.append(md)
 
     with open(args.json_save_path, "w") as fp:

@@ -5,16 +5,14 @@
 # LICENSE file in the root directory of this source tree.
 
 import math
-import scipy
-import trimesh
-import numpy as np
-import habitat_sim
-
-from sklearn.cluster import DBSCAN
-from scipy.spatial import ConvexHull
-
 from typing import Any, Dict, List
 
+import habitat_sim
+import numpy as np
+import scipy
+import trimesh
+from scipy.spatial import ConvexHull
+from sklearn.cluster import DBSCAN
 
 EPS = 1e-10
 
@@ -82,7 +80,7 @@ def get_floor_navigable_extents(
     """
     # randomly sample navigable points
     random_navigable_points = []
-    for i in range(num_points_to_sample):
+    for _i in range(num_points_to_sample):
         point = hsim.pathfinder.get_random_navigable_point()
         if np.isnan(point).any() or np.isinf(point).any():
             continue
@@ -165,7 +163,7 @@ def compute_navigation_complexity(
 def compute_scene_clutter(
     hsim: habitat_sim.Simulator,
     trimesh_scene: trimesh.parent.Geometry,
-    closeness_thresh: float = 0.5
+    closeness_thresh: float = 0.5,
 ) -> float:
     """
     Scene clutter measures amount of clutter in the scene. This is computed as
@@ -182,7 +180,7 @@ def compute_scene_clutter(
         trimesh_scene: 3D scene loaded in trimesh
         closeness_thresh: a distance threshold for points on the mesh to be
             considered "close" to navigable space.
-    
+
     Reference:
         Xia, Fei, et al.
         "Gibson env: Real-world perception for embodied agents."
@@ -228,7 +226,7 @@ def compute_scene_clutter(
 def compute_floor_area(
     hsim: habitat_sim.Simulator,
     trimesh_scene: trimesh.parent.Geometry,
-    floor_limit: float = 0.5
+    floor_limit: float = 0.5,
 ) -> float:
     """
     Floor area (m^2) measures the overall extents of the floor regions in the
