@@ -33,7 +33,7 @@ We provide a common set of instructions to setup the environment to run all our 
 2. Create conda environment and activate it.
 
     ```
-    conda env create -n hm3d python=3.8.3
+    conda create -n hm3d python=3.8.3
     conda activate hm3d
     ```
 3. Install habitat-sim using conda.
