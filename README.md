@@ -46,7 +46,7 @@ We provide a common set of instructions to setup the environment to run all our 
 4. Install trimesh with soft dependencies.
 
     ```
-    pip install "trimesh[easy]"
+    pip install "trimesh[easy]==3.9.1"
     ```
 
 5. Install remaining requirements from pip.

@@ -108,14 +108,16 @@ if __name__ == "__main__":
     parser.add_argument("--metrics", type=str, nargs="+", default=VALID_METRICS)
     parser.add_argument("--filter-scenes", type=str, default="")
     parser.add_argument("--save-path", type=str, default="")
-    parser.add_argument("--scan-pattern", type=str, default="*.glb")
+    parser.add_argument("--scan-patterns", type=str, nargs="+", default=["**/*.glb"])
     parser.add_argument("--voxel-size", type=float, default=0.1)
     parser.add_argument("--n-processes", type=int, default=8)
     parser.add_argument("--verbose", action="store_true", default=False)
 
     args = parser.parse_args()
 
-    scenes = glob.glob(f"{args.dataset_root}/**/{args.scan_pattern}", recursive=True)
+    scenes = []
+    for scan_pattern in args.scan_patterns:
+        scenes += glob.glob(f"{args.dataset_root}/{scan_pattern}", recursive=True)
     if args.filter_scenes != "":
         scenes = get_filtered_scenes(scenes, args.filter_scenes)
     scenes = sorted(scenes)
