@@ -245,8 +245,12 @@ if __name__ == "__main__":
     random.seed(123)
     np.random.seed(123)
 
-    if args.dataset_name in ["gibson", "hm3d", "mp3d", "scannet", "robothor"]:
+    if args.dataset_name in ["gibson", "mp3d", "scannet", "robothor"]:
         scenes = glob.glob(f"{args.dataset_dir}/**/*.glb", recursive=True)
+    elif args.dataset_name == "hm3d":
+        scenes = []
+        for split in ["train", "val"]:
+            scenes += glob.glob(f"{args.dataset_dir}/{split}/**/*.glb", recursive=True)
     elif args.dataset_name in ["replica"]:
         scenes = glob.glob(f"{args.dataset_dir}/*/mesh.ply", recursive=True)
 
