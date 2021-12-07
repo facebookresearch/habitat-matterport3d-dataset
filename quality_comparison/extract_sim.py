@@ -151,8 +151,10 @@ def get_dense_navmesh_vertices(
         for x, z in itertools.product(x_range, z_range):
             if sim.pathfinder.is_navigable(np.array([x, y, z])):
                 navmesh_vertices.append((np.array([x, y, z])))
-
-    navmesh_vertices = np.stack(navmesh_vertices, axis=0)
+    if len(navmesh_vertices) > 0:
+        navmesh_vertices = np.stack(navmesh_vertices, axis=0)
+    else:
+        navmesh_vertices = np.zeros((0, 3))
     return navmesh_vertices
 
 
