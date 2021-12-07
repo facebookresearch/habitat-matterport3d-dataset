@@ -13,13 +13,14 @@ def measure_visual_fidelity(args):
     metrics = torch_fidelity.calculate_metrics(
         input1=args.sim_path,
         input2=args.real_path,
-        isc=True,
         fid=True,
         kid=True,
         verbose=False,
     )
     for k, v in metrics.items():
-        print(f"{k:<40s}: {v}")
+        if "kernel_inception" in k:
+            v *= 1000.0
+        print(f"{k:<40s}: {v:.4f}")
 
 
 if __name__ == "__main__":
