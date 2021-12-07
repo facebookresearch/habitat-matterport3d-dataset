@@ -13,6 +13,7 @@ def measure_visual_fidelity(args):
     metrics = torch_fidelity.calculate_metrics(
         input1=args.sim_path,
         input2=args.real_path,
+        cuda=True,
         fid=True,
         kid=True,
         verbose=False,
