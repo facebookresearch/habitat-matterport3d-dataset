@@ -14,11 +14,14 @@ We now provide instructions to compute the reconstruction completeness and visua
     chmod +x run_sim_extraction.sh && ./run_sim_extraction.sh
     ```
 
-2. **Real-world image extraction:** We extract real-world images by randomly sampling perspective images from the raw 360 panoramas released in Gibson and MP3D. Obtain the 360 panorama images for MP3D using the [PanoBasic toolkit](https://github.com/yindaz/PanoBasic/blob/master/demo_matterport.m). Set the panorama paths as environment variables and run the extraction script.
+2. **Real-world image extraction:** We extract real-world images by randomly sampling perspective images from the raw 360 panoramas released in Gibson and MP3D.
 
+    a. **Obtain 360 panoramas for MP3D:** Download the [PanoBasic toolkit](https://github.com/yindaz/PanoBasic/blob/master/demo_matterport.m) to some path (say, `PANO_BASIC_ROOT`). Copy all the MP3D skybox images to a single directory (say, `MP3D_SKYBOX_ROOT`). See [MP3D dataset organization](https://github.com/niessner/Matterport/blob/master/data_organization.md) for reference. Let the path to save the MP3D panoramas be `MP3D_PANO_SAVE_ROOT`. Update these root paths in `convert_mp3d_to_pano.m` from this directory. Run `convert_mp3d_to_pano.m` using matlab to obtain the MP3D panoramas.
+
+    b. **Extract images from panoramas:** Set the panorama paths as environment variables and run the extraction script.
     ```
-    export GIBSON_PANO_ROOT="< path to gibson raw dataset>"
-    export MP3D_PANO_ROOT="< path to mp3d panoramas>"
+    export GIBSON_PANO_ROOT="< path to gibson raw dataset >"
+    export MP3D_PANO_ROOT="< path to mp3d panoramas >"
     chmod +x run_real_extraction.sh && ./run_real_extraction.sh
     ```
 
