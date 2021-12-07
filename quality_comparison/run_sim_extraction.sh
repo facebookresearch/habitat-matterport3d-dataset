@@ -7,6 +7,9 @@
 SAVE_ROOT="$SAVE_DIR_PATH/simulated_images"
 MD_SAVE_ROOT="$SAVE_DIR_PATH/simulated_images/rgb2depth_metadata"
 
+mkdir "$SAVE_ROOT"
+mkdir "$MD_SAVE_ROOT"
+
 python extract_sim.py \
    --dataset-dir "$GIBSON_ROOT" \
    --filter-scenes data/gibson_4_plus.txt \
