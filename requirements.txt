@@ -1,0 +1,6 @@
+open3d
+py360convert
+scikit-learn
+scipy
+seaborn
+torch_fidelity
